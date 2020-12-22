@@ -1,0 +1,49 @@
+//reset all
+* {
+  box-sizing: border-box;
+  outline: none;
+}
+
+html {
+  font-size: 1rem;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: #f1f1f1;
+}
+
+.router-link-active {
+  text-decoration: none;
+}
+
+.card {
+  margin: 0.5rem;
+}
+
+.el-card__body {
+  padding: 0.5rem;
+}
+
+.el-menu.el-menu--horizontal {
+  border-bottom: 0;
+}
+
+
+.view-title {
+  font-size: 1.5rem;
+  margin-top: 0;
+  text-align: center;
+}
+
+.view-text {
+  font-size: 1.125rem;
+  color: #333;
+  margin: 0
+}
+
+.chart-title {
+  font-size: 20px;
+  margin: 1rem 0
+}
