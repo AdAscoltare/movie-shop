@@ -4,7 +4,7 @@
  * @Author: Wang Wenzheng
  * @Date: 2020-12-15 14:22:40
  * @LastEditors: Wang Wenzheng
- * @LastEditTime: 2020-12-22 20:53:20
+ * @LastEditTime: 2020-12-22 22:47:25
 -->
 <template>
   <!-- navbar -->
@@ -57,8 +57,20 @@ export default {
   computed: {
     //保持刷新后menu高亮仍为当前路由
     currPage: function() {
-      //获取当前路由并返回
-      return this.$route.path;
+      //获取当前路由
+      const currRouter = this.$route.path;
+      //找到其属于哪一个页面或子页面
+      for (let page of this.pages) {
+        if (currRouter == page.router) {
+          return page.router;
+        }
+        for (let child of page.children) {
+          if (currRouter == child) {
+            return page.router;
+          }
+        }
+      }
+      return "/";
     },
   },
 };

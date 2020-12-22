@@ -4,7 +4,7 @@
  * @Author: Wang Wenzheng
  * @Date: 2020-12-22 18:14:20
  * @LastEditors: Wang Wenzheng
- * @LastEditTime: 2020-12-22 20:26:55
+ * @LastEditTime: 2020-12-22 22:55:08
 -->
 <template>
   <div id="app">
@@ -29,9 +29,13 @@ export default {
       navbarTitle: "电影商城后台管理系统",
       //navbar 的各个子页面标题和路由
       pages: [
-        { title: "模拟订单生成", router: "/" },
-        { title: "查询产品", router: "/SearchProduct" },
-        { title: "查询用户", router: "/SearchUser" },
+        { title: "模拟订单生成", router: "/", children: [] },
+        {
+          title: "查询产品",
+          router: "/searchProduct",
+          children: ["/productDetail"],
+        },
+        { title: "查询用户", router: "/searchUser", children: ["/userDetail"] },
       ],
     };
   },

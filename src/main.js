@@ -1,10 +1,10 @@
 /*
- * @Descripttion: 
+ * @Descripttion:
  * @version: 1.0
  * @Author: Wang Wenzheng
  * @Date: 2020-12-22 18:14:20
  * @LastEditors: Wang Wenzheng
- * @LastEditTime: 2020-12-22 19:43:29
+ * @LastEditTime: 2020-12-22 22:32:19
  */
 import Vue from "vue";
 import App from "./App.vue";
@@ -20,6 +20,10 @@ import "./style/basicStyle.scss";
 import ElementUi from "element-ui";
 import "element-ui/lib/theme-chalk/index.css";
 Vue.use(ElementUi);
+
+//引入全局变量
+import GLOBAL_CONST from "./js/global";
+Vue.prototype.GLOBAL_CONST = GLOBAL_CONST;
 
 //axios
 import Axios from "axios";

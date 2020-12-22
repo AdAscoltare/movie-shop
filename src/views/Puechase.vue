@@ -4,7 +4,7 @@
  * @Author: Wang Wenzheng
  * @Date: 2020-12-13 16:34:03
  * @LastEditors: Wang Wenzheng
- * @LastEditTime: 2020-12-22 22:09:38
+ * @LastEditTime: 2020-12-22 22:33:05
 -->
 <template>
   <div class="view">
@@ -21,6 +21,7 @@
             :tableData="products"
             :tableTitle="productTableTitle"
             :handleClick="handleClick"
+            :buttonName="this.buttonName"
           ></table-with-button>
         </el-col>
       </el-row>
@@ -32,7 +33,7 @@
           <el-pagination
             background
             layout="prev, pager, next"
-            :page-size="50"
+            :page-size="this.GLOBAL_CONST.PAGE_SIZE"
             :total="7456"
             @current-change="getProductData"
           >
@@ -50,6 +51,7 @@ import ProductTestData from "../testData/product.json";
 import ProductTestData2 from "../testData/product2.json";
 
 export default {
+  name: "purchase",
   components: { TableWithButton },
   data() {
     return {
@@ -58,6 +60,7 @@ export default {
         { label: "电影", prop: "name" },
         { label: "价格", prop: "prize" },
       ],
+      buttonName: "购买",
     };
   },
   methods: {

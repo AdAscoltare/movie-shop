@@ -4,7 +4,7 @@
  * @Author: Wang Wenzheng
  * @Date: 2020-12-22 20:50:57
  * @LastEditors: Wang Wenzheng
- * @LastEditTime: 2020-12-22 21:53:53
+ * @LastEditTime: 2020-12-22 22:39:10
 -->
 <template>
   <el-table class="table-with-button" :data="tableData" :stripe="true">
@@ -16,10 +16,10 @@
       :sortable="true"
     ></el-table-column>
     <!-- 增加一个按钮的列 -->
-    <el-table-column :label="'购买'">
+    <el-table-column :label="buttonName">
       <template slot-scope="scope">
-        <el-button @click="handleClick(scope.row)" type="text" size="small"
-          >购买
+        <el-button @click="handleClick(scope.row)" type="text" size="small">
+          {{ buttonName }}
         </el-button>
       </template>
     </el-table-column>
@@ -38,6 +38,7 @@ export default {
       type: Array,
       default: () => {},
     },
+    buttonName: String,
     handleClick: {
       type: Function,
     },
