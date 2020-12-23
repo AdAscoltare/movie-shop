@@ -4,7 +4,7 @@
  * @Author: Wang Wenzheng
  * @Date: 2020-12-13 16:34:03
  * @LastEditors: Wang Wenzheng
- * @LastEditTime: 2020-12-23 20:56:15
+ * @LastEditTime: 2020-12-23 21:23:59
 -->
 <template>
   <div class="view">
@@ -15,7 +15,7 @@
     <!-- 页面标题 end -->
     <el-row>
       <el-col :span="16" :offset="4">
-        <el-input placeholder="请输入用户号" v-model="inputPid">
+        <el-input placeholder="请输入用户号" v-model="inputUserid">
           <el-button
             @click="searchUserid"
             slot="append"
@@ -102,7 +102,7 @@ export default {
           console.log(err);
         });
     },
-    searchPid() {
+    searchUserid() {
       this.$router.push({
         name: "UserDetail",
         params: {

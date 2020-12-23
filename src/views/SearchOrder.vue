@@ -4,7 +4,7 @@
  * @Author: Wang Wenzheng
  * @Date: 2020-12-13 16:34:03
  * @LastEditors: Wang Wenzheng
- * @LastEditTime: 2020-12-23 14:02:31
+ * @LastEditTime: 2020-12-23 21:19:15
 -->
 <template>
   <div class="view">
@@ -12,7 +12,6 @@
     <div class="view-title">
       <h1>查询订单</h1>
     </div>
-
     <!-- 页面标题 end -->
     <div class="table-show">
       <el-row>
@@ -44,7 +43,7 @@
 </template>
 
 <script>
-import BasicTable from "../components/TableWithButton.vue";
+import BasicTable from "../components/BasicTable.vue";
 //!测试数据
 import OrderData from "../testData/orderData.json";
 
