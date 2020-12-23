@@ -45,86 +45,80 @@
 </template>
 
 <script>
-import TableWithButton from "../components/TableWithButton.vue";
-//! 测试数据
-import ProductTestData from "../testData/product2.json";
+import TableWithButton from '../components/TableWithButton.vue'
 
 export default {
-  name: "purchase",
+  name: 'purchase',
   components: { TableWithButton },
   data() {
     return {
       products: [],
       productTableTitle: [
-        { label: "电影", prop: "name" },
-        { label: "价格", prop: "prize" },
+        { label: '电影', prop: 'name' },
+        { label: '价格', prop: 'prize' },
       ],
-      buttonName: "购买",
-    };
+      buttonName: '购买',
+    }
   },
   methods: {
     //获取当前页码的商品数据
     getProductData(pageNum) {
-      pageNum--;
-      console.log("页码数", pageNum);
-      //todo: 将数据更改为真实电影商店数据
+      pageNum--
+      console.log('页码数', pageNum)
       this.$axios({
-        method: "get",
-        url: "http://119.45.194.177:8080/getLinePoint",
+        method: 'get',
+        url: 'http://192.168.124.12:8080/api/getPage',
         params: {
-          year: "2017",
-          commuteType: "com",
-          datatype: "with_main_top",
           //真实参数应该是页码号
-          //pageNum:0
+          pageNum: pageNum,
         },
       })
         .then((res) => {
-          console.log("get data", res);
-          this.products = ProductTestData.products;
-          this.totalNum = ProductTestData.totalNum;
+          console.log('get data', res)
+          this.products = res.data
+          console.log(this.products)
+          if (pageNum > 1) {
+            this.products = res.data
+          }
         })
         .catch((err) => {
-          console.log(err);
-        });
+          console.log(err)
+        })
     },
     //传入表格按钮的方法
     handleClick(row) {
       //向后端传新增的pid,userid,time,score,comment
       //!用户id固定
-      const pid = row.pid;
-      const userId = "A1007G0226CSWC";
-      const time = Math.round(new Date().getTime() / 1000).toString();
-      const comment = "挺好的";
-      const score = "4.0";
-      console.log(pid, userId, time, comment, score);
+      const pid = row.pid
+      const userId = 'A1007G0226CSWC'
+      const time = Math.round(new Date().getTime() / 1000).toString()
+      const comment = '挺好的'
+      const score = '4.0'
+      console.log(pid, userId, time, comment, score)
       //传输请求
-      //todo: 将请求换为真实请求
       this.$axios({
-        method: "get",
-        url: "http://119.45.194.177:8080/getLinePoint",
+        method: 'get',
+        url: 'http://192.168.124.12:8080/api/makePurchase',
         params: {
-          year: "2017",
-          commuteType: "com",
-          datatype: "with_main_top",
-          //pid:row.pid
-          //userid:userId
-          //score:"4.0"
-          //time:
-          //comment:
+          //真实参数应该是页码号
+          pid: row.pid,
+          userid: userId,
+          score: score,
+          comment: comment,
+          time: time,
         },
       })
         .then((res) => {
-          console.log(res.data);
+          console.log(res.data)
         })
         .catch((err) => {
-          console.log(err);
-        });
+          console.log(err)
+        })
     },
   },
   mounted() {
     //在函数中-1
-    this.getProductData(1);
+    this.getProductData(1)
   },
-};
+}
 </script>
