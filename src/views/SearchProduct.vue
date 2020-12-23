@@ -4,7 +4,7 @@
  * @Author: Wang Wenzheng
  * @Date: 2020-12-13 16:34:03
  * @LastEditors: Wang Wenzheng
- * @LastEditTime: 2020-12-22 22:57:30
+ * @LastEditTime: 2020-12-23 09:05:25
 -->
 <template>
   <div class="view">
@@ -33,8 +33,8 @@
           <el-pagination
             background
             layout="prev, pager, next"
-            :page-size="50"
-            :total="7456"
+            :page-size="this.GLOBAL_CONST.PAGE_SIZE"
+            :total="totalNum"
             @current-change="getProductData"
           >
           </el-pagination>
@@ -47,13 +47,14 @@
 <script>
 import TableWithButton from "../components/TableWithButton.vue";
 //! 测试数据
-import SearchProData from "../testData/searchPro.json";
+import ProductData from "../testData/product2.json";
 
 export default {
   name: "search-product",
   components: { TableWithButton },
   data() {
     return {
+      totalNum: 0,
       products: [],
       productTableTitle: [
         { label: "商品号", prop: "pid" },
@@ -81,7 +82,8 @@ export default {
       })
         .then((res) => {
           console.log("get data", res);
-          this.products = SearchProData;
+          this.products = ProductData.products;
+          this.totalNum = ProductData.totalNum;
         })
         .catch((err) => {
           console.log(err);
@@ -91,11 +93,15 @@ export default {
     handleClick(row) {
       //向后端传pid,请求其详情数据
       const pid = row.pid;
+      const name = row.name;
+      const prize = row.prize;
       //跳转至该详情页
       this.$router.push({
         name: "ProductDetail",
         params: {
-          pid: pid,
+          pid,
+          name,
+          prize,
         },
       });
     },

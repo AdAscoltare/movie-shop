@@ -4,7 +4,7 @@
  * @Author: Wang Wenzheng
  * @Date: 2020-12-13 16:34:03
  * @LastEditors: Wang Wenzheng
- * @LastEditTime: 2020-12-22 22:33:05
+ * @LastEditTime: 2020-12-23 09:01:15
 -->
 <template>
   <div class="view">
@@ -47,8 +47,7 @@
 <script>
 import TableWithButton from "../components/TableWithButton.vue";
 //! 测试数据
-import ProductTestData from "../testData/product.json";
-import ProductTestData2 from "../testData/product2.json";
+import ProductTestData from "../testData/product2.json";
 
 export default {
   name: "purchase",
@@ -82,11 +81,8 @@ export default {
       })
         .then((res) => {
           console.log("get data", res);
-          this.products = ProductTestData;
-          console.log(this.products);
-          if (pageNum > 1) {
-            this.products = ProductTestData2;
-          }
+          this.products = ProductTestData.products;
+          this.totalNum = ProductTestData.totalNum;
         })
         .catch((err) => {
           console.log(err);
@@ -111,7 +107,6 @@ export default {
           year: "2017",
           commuteType: "com",
           datatype: "with_main_top",
-          //真实参数应该是页码号
           //pid:row.pid
           //userid:userId
           //score:"4.0"

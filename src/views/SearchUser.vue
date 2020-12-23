@@ -4,7 +4,7 @@
  * @Author: Wang Wenzheng
  * @Date: 2020-12-13 16:34:03
  * @LastEditors: Wang Wenzheng
- * @LastEditTime: 2020-12-22 23:07:03
+ * @LastEditTime: 2020-12-23 09:07:06
 -->
 <template>
   <div class="view">
@@ -33,8 +33,8 @@
           <el-pagination
             background
             layout="prev, pager, next"
-            :page-size="50"
-            :total="7456"
+            :page-size="this.GLOBAL_CONST.PAGE_SIZE"
+            :total="totalNum"
             @current-change="getuserData"
           >
           </el-pagination>
@@ -54,6 +54,7 @@ export default {
   components: { TableWithButton },
   data() {
     return {
+      totalNum: 0,
       users: [],
       userTableTitle: [
         { label: "用户号", prop: "userid" },
@@ -81,7 +82,8 @@ export default {
       })
         .then((res) => {
           console.log("get data", res);
-          this.users = UserData;
+          this.users = UserData.users;
+          this.totalNum = UserData.totalNum;
         })
         .catch((err) => {
           console.log(err);
