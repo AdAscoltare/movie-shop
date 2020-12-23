@@ -4,7 +4,7 @@
  * @Author: Wang Wenzheng
  * @Date: 2020-12-13 16:34:03
  * @LastEditors: Wang Wenzheng
- * @LastEditTime: 2020-12-23 09:49:49
+ * @LastEditTime: 2020-12-23 20:58:58
 -->
 <template>
   <div class="view">
@@ -18,8 +18,6 @@
     <div>
       <el-row>
         <el-col :span="4" :offset="4">商品号 : {{ pid }}</el-col>
-        <el-col :span="4">商品名 : {{ name }}</el-col>
-        <el-col :span="4">商品价格 : {{ prize }}</el-col>
         <el-col :span="4">商品总销量 : {{ totalNum }}</el-col>
       </el-row>
     </div>
@@ -36,15 +34,30 @@
           ></basic-table>
         </el-col>
         <!-- 页面的表格 end -->
-        <!-- 饼图 -->
-        <el-col :span="8" v-if="this.pieDataReady">
-          <pie-chart
-            :title="'评分分布图'"
-            :tag="'score'"
-            :data="scoreData"
-          ></pie-chart>
+
+        <el-col :span="8">
+          <!-- 饼图 -->
+          <transition v-if="this.pieDataReady" name="el-fade-in-linear">
+            <pie-chart
+              :title="'评分分布图'"
+              :tag="'score'"
+              :data="scoreData"
+            ></pie-chart>
+          </transition>
+
+          <!-- 饼图 end -->
+          <!-- 折线图 -->
+          <transition v-if="this.lineDataReady" name="el-fade-in-linear">
+            <line-chart
+              :tag="'sale'"
+              :title="'销量走势图'"
+              :configMap="lineDataConfig"
+              :data="saleData"
+              :tooltip="'{b} : 销量{c}'"
+            ></line-chart>
+          </transition>
+          <!-- 折线图 end -->
         </el-col>
-        <!-- 饼图 end -->
       </el-row>
     </div>
 
@@ -53,7 +66,7 @@
         <el-col :span="16">
           <el-pagination
             background
-            layout="prev, pager, next"
+            layout="total, prev, pager, next"
             :page-size="this.GLOBAL_CONST.PAGE_SIZE"
             :total="this.totalNum"
             @current-change="getOrdersData"
@@ -68,15 +81,18 @@
 <script>
 import BasicTable from "../components/BasicTable.vue";
 import PieChart from "../components/PieChart.vue";
+import LineChart from "../components/LineChart.vue";
 //!测试数据
 import OrderData from "../testData/orderData.json";
 import ScoreData from "../testData/scoreData.json";
+import SaleData from "../testData/saleData.json";
 
 export default {
   name: "product-detail",
   components: {
     BasicTable,
     PieChart,
+    LineChart,
   },
   data() {
     return {
@@ -92,9 +108,28 @@ export default {
         { label: "评分", prop: "score" },
         { label: "评价", prop: "comment" },
       ],
+      //饼图配置
       scoreData: [],
       pieDataReady: false,
+      //折线图配置
+
+      saleData: [],
+      lineDataReady: false,
     };
+  },
+  computed: {
+    lineDataConfig: function() {
+      return [
+        {
+          key: "time",
+        },
+        {
+          key: "sale",
+          name: this.pid,
+          color: "#ff7f50",
+        },
+      ];
+    },
   },
   methods: {
     getOrdersData(pageNum) {
@@ -149,11 +184,35 @@ export default {
           console.log(err);
         });
     },
+    //获取销量数据
+    getSaleData() {
+      //todo: 将数据更改为真实电影商店数据
+      this.$axios({
+        method: "get",
+        url: "http://119.45.194.177:8080/getLinePoint",
+        params: {
+          year: "2017",
+          commuteType: "com",
+          datatype: "with_main_top",
+          //真实参数应该是pid
+          //pid:this.pid
+        },
+      })
+        .then((res) => {
+          console.log("get data", res);
+          this.saleData = SaleData;
+          this.lineDataReady = true;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
   },
   mounted() {
     console.log(this.pid, this.name, this.prize);
     this.getOrdersData(1);
     this.getScoreData();
+    this.getSaleData();
   },
 };
 </script>

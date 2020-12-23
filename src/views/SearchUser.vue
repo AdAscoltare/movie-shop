@@ -4,7 +4,7 @@
  * @Author: Wang Wenzheng
  * @Date: 2020-12-13 16:34:03
  * @LastEditors: Wang Wenzheng
- * @LastEditTime: 2020-12-23 09:07:06
+ * @LastEditTime: 2020-12-23 20:56:15
 -->
 <template>
   <div class="view">
@@ -13,6 +13,18 @@
       <h1>查询用户</h1>
     </div>
     <!-- 页面标题 end -->
+    <el-row>
+      <el-col :span="16" :offset="4">
+        <el-input placeholder="请输入用户号" v-model="inputPid">
+          <el-button
+            @click="searchUserid"
+            slot="append"
+            icon="el-icon-search"
+          ></el-button>
+        </el-input>
+      </el-col>
+    </el-row>
+    <el-divider></el-divider>
     <!-- 页面的表格 -->
     <div class="table-show">
       <el-row>
@@ -32,7 +44,7 @@
         <el-col :span="16" :offset="4">
           <el-pagination
             background
-            layout="prev, pager, next"
+            layout="total, prev, pager, next"
             :page-size="this.GLOBAL_CONST.PAGE_SIZE"
             :total="totalNum"
             @current-change="getuserData"
@@ -61,6 +73,7 @@ export default {
         { label: "用户名", prop: "username" },
       ],
       buttonName: "查看详情",
+      inputUserid: "",
     };
   },
   methods: {
@@ -88,6 +101,14 @@ export default {
         .catch((err) => {
           console.log(err);
         });
+    },
+    searchPid() {
+      this.$router.push({
+        name: "UserDetail",
+        params: {
+          userid: this.inputUserid,
+        },
+      });
     },
     //传入表格按钮的方法
     handleClick(row) {

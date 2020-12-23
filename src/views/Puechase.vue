@@ -32,7 +32,7 @@
         <el-col :span="16" :offset="4">
           <el-pagination
             background
-            layout="prev, pager, next"
+            layout="total, prev, pager, next"
             :page-size="this.GLOBAL_CONST.PAGE_SIZE"
             :total="7456"
             @current-change="getProductData"

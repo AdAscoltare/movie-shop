@@ -4,7 +4,7 @@
  * @Author: Wang Wenzheng
  * @Date: 2020-12-23 09:16:59
  * @LastEditors: Wang Wenzheng
- * @LastEditTime: 2020-12-23 09:45:22
+ * @LastEditTime: 2020-12-23 20:44:37
 -->
 <template>
   <div style="height:600px" v-bind:id="this.tag + '-pie-chart'"></div>
@@ -33,9 +33,17 @@ export default {
         title: { text: this.title },
         tooltip: {
           trigger: "item",
-          formatter: "{a} <br/>{b} : {c} ({d}%)",
+          formatter: "{b} : {c} ({d}%)",
         },
-
+        toolbox: {
+          feature: {
+            saveAsImage: {},
+            dataZoom: {
+              yAxisIndex: "none",
+            },
+            restore: {},
+          },
+        },
         legend: {},
         series: [
           {
@@ -48,7 +56,7 @@ export default {
               itemStyle: {
                 shadowBlur: 10,
                 shadowOffsetX: 0,
-                shadowColor: "rgba(0, 0, 0, 0.5)",
+                shadowColor: "rgba(0, 0, 0, 1)",
               },
             },
           },
@@ -57,7 +65,6 @@ export default {
       this.option = rawOption;
     },
     configLegendOption() {
-      //解构计算标题名
       const legendData = [];
       for (let item of this.data) {
         legendData.push(item.name);

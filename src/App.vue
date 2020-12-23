@@ -36,6 +36,7 @@ export default {
           children: ["/productDetail"],
         },
         { title: "查询用户", router: "/searchUser", children: ["/userDetail"] },
+        { title: "查询订单", router: "/searchOrder", children: [] },
       ],
     };
   },

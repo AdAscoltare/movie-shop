@@ -14,10 +14,6 @@ body {
   background-color: #f1f1f1;
 }
 
-.router-link-active {
-  text-decoration: none;
-}
-
 .card {
   margin: 0.5rem;
 }
@@ -25,11 +21,6 @@ body {
 .el-card__body {
   padding: 0.5rem;
 }
-
-.el-menu.el-menu--horizontal {
-  border-bottom: 0;
-}
-
 
 .view-title {
   font-size: 1.5rem;
